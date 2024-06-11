@@ -1,0 +1,85 @@
+spring:
+  application:
+    name: tvh
+  main:
+    banner-mode: off
+  servlet:
+    multipart:
+      max-file-size: 64000MB
+      max-request-size: 6400MB
+
+  task:
+    execution:
+      pool:
+        core-size: 6
+        max-size: 36
+        keep-alive: 60s
+        queue-capacity: 128
+      thread-name-prefix: worker-
+  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: mikumiku
+    password: vZIzpEE102PIU8Tc
+#    url: jdbc:mysql://mysql.sqlpub.com:3306/mikumiku
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:mysql://mysql.sqlpub.com:3306/mikumiku?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
+  codec:
+    max-in-memory-size: 100MB
+
+server:
+  port: 8888
+
+
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    root: debug
+
+
+actable:
+  table:
+    auto: update
+  model:
+    pack: io.goji
+  database:
+    type: mysql
+
+
+mybatis-plus:
+  configuration:
+    # 加载所有 mapper 文件中配置的全局缓存
+    cache-enabled: false
+    #配置日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 设置对于枚举类型, 默认使用哪个类型处理器, 默认是EnumTypeHandler
+    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
+    # 将 null 值映射为 Jdbc 类型的 NULL, 而不是 JdbcType.OTHER
+    jdbc-type-for-null: 'null'
+    # mysql 下划线命名 --> java 驼峰命名
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      # 逻辑删除的全局属性名(若配置了该参数, 则省略写 @TableLogic 注解)
+      logic-delete-field: deleted
+      # 逻辑删除的全局值（默认1, 表示已删除）
+      logic-delete-value: 1
+      # 逻辑未删除的全局值（默认0, 表示未删除）
+      logic-not-delete-value: 0
+  # mapper 文件位置
+  mapper-locations: classpath*:/mapper/**/*.xml,classpath*:com/gitee/sunchenbin/mybatis/actable/mapping/*/*.xml
+  # 指定一个顶层包 (一般是 entity 所在包), 该包下的类都可以使用简写类名
+  type-aliases-package: io.goji.biz.maner.model
+
+
+#springdoc:
+#  api-docs:
+#    path: /v3/api-docs
+#    enabled: true
+#  swagger-ui:
+#    path: /swagger-ui.html
+#    tags-sorter: alpha
+#    operations-sorter: alpha
+#  group-configs:
+#    - group: '大作业'
+#      paths-to-match: '/**'
+#      packages-to-scan: io.goji

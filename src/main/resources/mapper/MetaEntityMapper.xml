@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="io.goji.biz.maner.repo.MetaEntityMapper">
+<!--    <resultMap id="BaseResultMap" type="io.goji.biz.maner.entity.MetaEntity">-->
+<!--        <id column="id" property="id" jdbcType="BIGINT"/>-->
+<!--        <result column="name" property="name" jdbcType="VARCHAR"/>-->
+<!--        <result column="description" property="description" jdbcType="VARCHAR"/>-->
+<!--        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>-->
+<!--        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>-->
+<!--    </resultMap>-->
+
+<!--    <sql id="Base_Column_List">-->
+<!--        id, name, description, created_at, updated_at-->
+<!--    </sql>-->
+
+<!--    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">-->
+<!--        select-->
+<!--        <include refid="Base_Column_List"/>-->
+<!--        from meta_entity-->
+<!--        where id = #{id,jdbcType=BIGINT}-->
+<!--    </select>-->
+
+<!--    <select id="selectAll" resultMap="BaseResultMap">-->
+<!--        select-->
+<!--        <include refid="Base_Column_List"/>-->
+<!--        from meta_entity-->
+<!--    </select>-->
+
+<!--    <insert id="insert" parameterType="io.goji.biz.maner.entity.MetaEntity">-->
+<!--        insert into meta_entity (name, description, created_at, updated_at)-->
+<!--        values (#{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP})-->
+<!--    </insert>-->
+
+<!--    <update id="updateByPrimaryKey" parameterType="io.goji.biz.maner.entity.MetaEntity">-->
+<!--        update meta_entity-->
+<!--        set name = #{name,jdbcType=VARCHAR},-->
+<!--            description = #{description,jdbcType=VARCHAR},-->
+<!--            created_at = #{createdAt,jdbcType=TIMESTAMP},-->
+<!--            updated_at = #{updatedAt,jdbcType=TIMESTAMP}-->
+<!--        where id = #{id,jdbcType=BIGINT}-->
+<!--    </update>-->
+
+<!--    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">-->
+<!--        delete from meta_entity-->
+<!--        where id = #{id,jdbcType=BIGINT}-->
+<!--    </delete>-->
+
+</mapper>
