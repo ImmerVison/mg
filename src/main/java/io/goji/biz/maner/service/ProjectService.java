@@ -75,6 +75,7 @@ public BaseResponse<Boolean> deleteProject(String projectId){
         } catch (Exception e){
             return BaseResponse.fail("删除失败", false);
         }
+        projectInfoMapper.deleteProjectById(projectId);
         return BaseResponse.success("删除成功", true);
     }
 
