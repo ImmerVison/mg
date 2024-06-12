@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @Tag(name = "项目管理", description = "项目管理接口")
 @RestController
-@RequestMapping("/project")
+@RequestMapping("projects")
 public class ProjectController {
 
     @Resource
@@ -27,11 +27,10 @@ public class ProjectController {
 
 
 
-    @GetMapping("/list")
+    @GetMapping
     @Operation(summary = "获取项目列表", description = "获取项目列表")
     @ApiResponse(useReturnTypeSchema = true, responseCode = "200", description = "获取项目列表")
     public ResponseEntity<BaseResponse<List<ProjectInfo>>> getProjectList() {
-        log.info("获取项目列表...");
         return ResponseEntity.ok(projectService.getProjectList());
     }
 
@@ -42,7 +41,7 @@ public class ProjectController {
                 @Parameter(name = "projectName", description = "项目名称", required = true, example = "项目1")
             }
     )
-    @PostMapping("/{projectName}")
+    @PostMapping("{projectName}")
     @ApiResponse(useReturnTypeSchema = true, responseCode = "200", description = "新增项目")
     public ResponseEntity<BaseResponse<Boolean>> addProject(@PathVariable("projectName") String projectName) {
         return ResponseEntity.ok(projectService.addProject(projectName));
@@ -55,7 +54,7 @@ public class ProjectController {
                     @Parameter(name = "projectId", description = "项目ID", required = true, example = "1")
             }
     )
-    @DeleteMapping("/{projectId}")
+    @DeleteMapping("{projectId}")
     @ApiResponse(useReturnTypeSchema = true, responseCode = "200", description = "删除项目")
     public ResponseEntity<BaseResponse<Boolean>> deleteProject(@PathVariable("projectId") String projectId) {
         log.info("删除项目...");
@@ -73,7 +72,7 @@ public class ProjectController {
                     @Parameter(name = "projectName", description = "项目名称", required = true, example = "项目1")
             }
     )
-    @PutMapping("/{projectId}/{projectName}")
+    @PutMapping("{projectId}/{projectName}")
     @ApiResponse(useReturnTypeSchema = true, responseCode = "200", description = "更新项目名称")
     public ResponseEntity<BaseResponse<Boolean>> updateName(
             @PathVariable("projectId") String projectId,

@@ -27,7 +27,7 @@ public class ProjectInfo {
     @Schema(description = "项目ID")
     @Column(isKey = true)
     @TableId(type = IdType.AUTO)
-    String id;
+    String projectId;
 
     @Schema(description = "项目名称")
     @Column

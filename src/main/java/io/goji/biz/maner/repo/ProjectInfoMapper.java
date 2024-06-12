@@ -13,18 +13,18 @@ public interface ProjectInfoMapper extends BaseMapper<ProjectInfo> {
     List<ProjectInfo> getProjectList();
 
     @Delete("delete from project_info where project_id = #{projectId}")
-    int deleteProjectById(String projectId);
+    int deleteProjectById(@Param("projectId") String projectId);
 
     @Insert("""
-                        insert into project_info(project_id, project_name, project_desc, create_time, update_time)
-                        values(#{projectId}, #{projectName}, #{projectDesc}, #{createTime}, #{updateTime})
+                        insert into project_info(project_id, name)
+                         values(#{projectId}, #{name})
             """)
     boolean addProject(ProjectInfo projectInfo);
 
 
     @Update("""
                         update project_info
-                        set project_name = #{projectName}, project_desc = #{projectDesc}, update_time = #{updateTime}
+                        set name = #{name}
                         where project_id = #{projectId}
             """)
     void updateName(ProjectInfo newInfo);
@@ -34,7 +34,7 @@ public interface ProjectInfoMapper extends BaseMapper<ProjectInfo> {
     ProjectInfo getProjectById(String projectId);
 
 
-    @Select("select * from project_info where project_name = #{projectName}")
+    @Select("select * from project_info where name = #{projectName}")
     ProjectInfo getProjectByName(String projectName);
 
 

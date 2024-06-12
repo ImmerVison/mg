@@ -49,13 +49,14 @@ public class ProjectService {
         if(projectByName != null){
             return BaseResponse.fail(HttpStatus.CONFLICT, "项目名称已存在", false);
         }
-        projectInfoMapper.addProject(
-                ProjectInfo
-                        .builder()
-                        .id(snowflakeId.generateId(Constants.WORKER_ID))
-                        .name(projectName)
-                        .build()
-        );
+
+        ProjectInfo newProject = ProjectInfo
+                .builder()
+                .projectId(snowflakeId.generateId(Constants.WORKER_ID))
+                .name(projectName)
+                .build();
+        log.info("newProject is {}", newProject);
+        projectInfoMapper.addProject(newProject);
         return BaseResponse.success("新增成功", true);
     }
 
@@ -90,7 +91,7 @@ public BaseResponse<Boolean> deleteProject(String projectId){
         projectInfoMapper.updateName(
                 ProjectInfo
                         .builder()
-                        .id(projectId)
+                        .projectId(projectId)
                         .name(projectName)
                         .build()
         );

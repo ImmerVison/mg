@@ -18,7 +18,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/meta")
+@RequestMapping("meta")
 @Tag(name = "元数据管理", description = "元数据管理接口")
 public class MetaInfoController {
 
@@ -56,9 +56,10 @@ public class MetaInfoController {
     }
 
     @Operation(summary = "获取项目所有元数据", description = "获取项目所有元数据")
-    @GetMapping("all/{projectId}")
+    @GetMapping("{projectId}")
     @ApiResponse(useReturnTypeSchema = true, responseCode = "200", description = "获取项目所有元数据")
     public ResponseEntity<BaseResponse<List<MetaEntity>> > getAllMetaInfo(@PathVariable("projectId") String projectId) {
+
         return ResponseEntity.ok(metaInfoService.getAllMetaEntity(projectId));
     }
 
@@ -66,8 +67,8 @@ public class MetaInfoController {
     @Operation(summary = "下载元数据", description = "下载元数据")
     @GetMapping("download/{projectId}")
     @ApiResponse(useReturnTypeSchema = true, responseCode = "200", description = "下载元数据")
-    public ResponseEntity<BaseResponse<Void>> metaInfoDownload(@PathVariable("projectId") String projectId, HttpServletResponse response) {
-        return ResponseEntity.ok(metaInfoService.metaInfoDownLoad(projectId, response));
+    public void metaInfoDownload(@PathVariable("projectId") String projectId, HttpServletResponse response) {
+        metaInfoService.metaInfoDownLoad(projectId, response);
     }
 
 

@@ -28,7 +28,7 @@ public interface MetaEntityMapper extends BaseMapper<MetaEntity> {
 
 
     @Select("select * from meta_entity where project_id = #{projectId}")
-    List<MetaEntity> getMetaEntityList();
+    List<MetaEntity> getMetaEntityListById(String projectId);
 
     @Delete("delete from meta_entity where project_id = #{projectId}")
     int deleteMetaEntityByProjectId(String projectId);

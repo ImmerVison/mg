@@ -9,8 +9,6 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.web.servlet.MultipartAutoConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,9 +18,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
 import java.util.List;
-import java.util.stream.Stream;
 
 @Slf4j
 @AllArgsConstructor
@@ -45,51 +41,29 @@ public class MetaEntityService {
     }
 
 
-    public BaseResponse<List<MetaEntity>> getAllMetaEntity(String project) {
-        List<MetaEntity> metaEntityList = metaEntityMapper.getMetaEntityList();
+    public BaseResponse<List<MetaEntity>> getAllMetaEntity(String projectId) {
+        List<MetaEntity> metaEntityList = metaEntityMapper.getMetaEntityListById(projectId);
         return metaEntityList.isEmpty() ? BaseResponse.fail("No MetaEntity found", null) : BaseResponse.success(metaEntityList);
     }
 
     public BaseResponse<Boolean> uploadMetaEntity(String projectId, MultipartFile file) {
         Path uploadPath = Path.of(Constants.RESOURCE_PATH);
         if (!uploadPath.toFile().exists()) {
+            Path targetFile = uploadPath.resolve(projectId);
             try {
-                Files.createDirectory(uploadPath);
+                Files.createDirectories(uploadPath);
+                file.transferTo(targetFile);
             } catch (IOException e) {
                 e.printStackTrace();
-                log.info("Failed to create the directory: {}", uploadPath);
-                return BaseResponse.fail("Failed to create the directory", false);
-
+                return BaseResponse.fail("Failed to upload MetaEntity", false);
             }
-        }
-        Path originFile = uploadPath.resolve(projectId);
-        try (Stream<Path> folders = Files.list(uploadPath)) {
-            folders.filter(path -> path.getFileName().toString().equals(projectId))
-                    .forEach(path -> {
-                        try {
-                            Files.delete(path);
-                        } catch (IOException e) {
-                            log.info("Failed to delete the file {}", path);
-                            e.printStackTrace();
-                        }
-                    });
-        } catch (IOException e) {
-            e.printStackTrace();
-            log.info("Failed to delete the file");
-            return BaseResponse.fail("Failed to delete the file", false);
-        }
-
-        try {
-            file.transferTo(originFile);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return BaseResponse.success("MetaEntity uploaded successfully", true);
 
     }
 
 
-    public BaseResponse<Void> metaInfoDownLoad(String projectId, HttpServletResponse response) {
+    public void metaInfoDownLoad(String projectId, HttpServletResponse response) {
         Path downloadPath = Path.of(Constants.RESOURCE_PATH);
         Path file = downloadPath.resolve(projectId);
         if (!file.toFile().exists()) {
@@ -115,7 +89,6 @@ public class MetaEntityService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
 
     }
 
