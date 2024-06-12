@@ -6,6 +6,7 @@ import io.goji.biz.maner.service.MetaEntityService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.Synchronized;
@@ -15,13 +16,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@CrossOrigin
 @AllArgsConstructor
 @RestController
 @RequestMapping("/meta")
 @Tag(name = "元数据管理", description = "元数据管理接口")
 public class MetaInfoController {
 
+    @Resource
     private final MetaEntityService metaInfoService;
 
     @Operation(summary = "新增元数据", description = "新增元数据")

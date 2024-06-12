@@ -7,27 +7,31 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Resource;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin
+@Slf4j
 @AllArgsConstructor
 @Tag(name = "项目管理", description = "项目管理接口")
 @RestController
 @RequestMapping("/project")
 public class ProjectController {
 
+    @Resource
     private final ProjectService projectService;
 
 
 
-    @GetMapping
+    @GetMapping("/list")
     @Operation(summary = "获取项目列表", description = "获取项目列表")
     @ApiResponse(useReturnTypeSchema = true, responseCode = "200", description = "获取项目列表")
     public ResponseEntity<BaseResponse<List<ProjectInfo>>> getProjectList() {
+        log.info("获取项目列表...");
         return ResponseEntity.ok(projectService.getProjectList());
     }
 
@@ -54,6 +58,8 @@ public class ProjectController {
     @DeleteMapping("/{projectId}")
     @ApiResponse(useReturnTypeSchema = true, responseCode = "200", description = "删除项目")
     public ResponseEntity<BaseResponse<Boolean>> deleteProject(@PathVariable("projectId") String projectId) {
+        log.info("删除项目...");
+        System.out.println("删除项目...ddd");
         return ResponseEntity.ok(projectService.deleteProject(projectId));
     }
 

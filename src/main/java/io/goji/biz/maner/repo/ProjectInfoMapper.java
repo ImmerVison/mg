@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface ProjectInfoMapper extends BaseMapper<ProjectInfo> {
 
-//    @Select("select * from project_info")
+    @Select("select * from project_info")
     List<ProjectInfo> getProjectList();
 
     @Delete("delete from project_info where project_id = #{projectId}")

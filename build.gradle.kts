@@ -1,6 +1,6 @@
 plugins {
     java
-    id("org.springframework.boot") version "3.2.6"
+    id("org.springframework.boot") version "3.2.0"
     id("io.spring.dependency-management") version "1.1.5"
 }
 
@@ -25,9 +25,15 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.baomidou:mybatis-plus-spring-boot3-starter:3.5.6")
+    implementation("com.baomidou:mybatis-plus-spring-boot3-starter:3.5.6") {
+        exclude(group = "org.mybatis", module = "mybatis-spring")
+    }
+    implementation("org.mybatis:mybatis-spring:3.0.3")
     // https://mvnrepository.com/artifact/com.gitee.sunchenbin.mybatis.actable/mybatis-enhance-actable
     implementation("com.gitee.sunchenbin.mybatis.actable:mybatis-enhance-actable:1.5.0.RELEASE")
+    {
+        exclude(group = "org.mybatis", module = "mybatis-spring")
+    }
     // https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-openapi3-jakarta-spring-boot-starter
     implementation("com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter:4.5.0")
     compileOnly("org.projectlombok:lombok")

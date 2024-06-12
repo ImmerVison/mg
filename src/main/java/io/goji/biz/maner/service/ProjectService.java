@@ -11,6 +11,7 @@ import io.goji.biz.maner.repo.ProjectInfoMapper;
 import io.goji.biz.maner.utility.SnowflakeId;
 import jakarta.annotation.Resource;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-
+@Slf4j
 @Service
 @AllArgsConstructor
 public class ProjectService {
@@ -39,6 +40,7 @@ public class ProjectService {
     public BaseResponse<List<ProjectInfo>> getProjectList() {
         var queryWrapper = new LambdaQueryWrapper<ProjectInfo>();
         var projectInfoList = projectInfoMapper.selectList(queryWrapper);
+        log.info("projectInfoList: {}", projectInfoList);
         return projectInfoList.isEmpty() ? BaseResponse.success(Collections.emptyList()) : BaseResponse.success(projectInfoList);
     }
 
